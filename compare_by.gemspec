@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "compare_by"
   spec.version       = CompareBy::VERSION
   spec.authors       = ["Aidan Feldman"]
-  spec.email         = ["aidan.feldman@gsa.gov"]
+  spec.email         = ["aidan.feldman@gmail.com"]
 
   spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
   spec.description   = %q{TODO: Write a longer description or delete this line.}
