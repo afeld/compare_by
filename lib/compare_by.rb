@@ -10,14 +10,22 @@ module CompareBy
   module InstanceMethods
     def ==(other)
       compare_by = self.class.class_variable_get(:@@compare_by)
-      send(compare_by) == other.send(compare_by)
+      if compare_by
+        send(compare_by) == other.send(compare_by)
+      else
+        super
+      end
     end
 
     alias_method :eql?, :==
 
     def hash
       compare_by = self.class.class_variable_get(:@@compare_by)
-      send(compare_by).hash
+      if compare_by
+        send(compare_by).hash
+      else
+        super
+      end
     end
   end
 
