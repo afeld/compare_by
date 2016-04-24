@@ -50,32 +50,64 @@ describe CompareBy do
       compare_by :some_attr
     end
 
-    it "makes two instances ==" do
-      instance1 = TestCompareByOne.new
-      instance1.some_attr = 'foo'
-      instance2 = TestCompareByOne.new
-      instance2.some_attr = 'foo'
+    describe "two instances with the same values" do
+      it "makes them ==" do
+        instance1 = TestCompareByOne.new
+        instance1.some_attr = 'foo'
+        instance2 = TestCompareByOne.new
+        instance2.some_attr = 'foo'
 
-      expect(instance1 == instance2).to eq(true)
+        expect(instance1 == instance2).to eq(true)
+      end
+
+      it "makes them #eql?" do
+        instance1 = TestCompareByOne.new
+        instance1.some_attr = 'foo'
+        instance2 = TestCompareByOne.new
+        instance2.some_attr = 'foo'
+
+        expect(instance1.eql?(instance2)).to eq(true)
+      end
+
+      it "makes them unique in a Set" do
+        instance1 = TestCompareByOne.new
+        instance1.some_attr = 'foo'
+        instance2 = TestCompareByOne.new
+        instance2.some_attr = 'foo'
+
+        set = [instance1, instance2].to_set
+        expect(set.size).to eq(1)
+      end
     end
 
-    it "makes two instances #eql?" do
-      instance1 = TestCompareByOne.new
-      instance1.some_attr = 'foo'
-      instance2 = TestCompareByOne.new
-      instance2.some_attr = 'foo'
+    describe "two instances with different values" do
+      it "makes them !=" do
+        instance1 = TestCompareByOne.new
+        instance1.some_attr = 'foo'
+        instance2 = TestCompareByOne.new
+        instance2.some_attr = 'bar'
 
-      expect(instance1.eql?(instance2)).to eq(true)
-    end
+        expect(instance1 != instance2).to eq(true)
+      end
 
-    it "is unique in a Set" do
-      instance1 = TestCompareByOne.new
-      instance1.some_attr = 'foo'
-      instance2 = TestCompareByOne.new
-      instance2.some_attr = 'foo'
+      it "makes them not #eql?" do
+        instance1 = TestCompareByOne.new
+        instance1.some_attr = 'foo'
+        instance2 = TestCompareByOne.new
+        instance2.some_attr = 'bar'
 
-      set = [instance1, instance2].to_set
-      expect(set.size).to eq(1)
+        expect(instance1.eql?(instance2)).to eq(false)
+      end
+
+      it "doesn't make them unique in a Set" do
+        instance1 = TestCompareByOne.new
+        instance1.some_attr = 'foo'
+        instance2 = TestCompareByOne.new
+        instance2.some_attr = 'bar'
+
+        set = [instance1, instance2].to_set
+        expect(set.size).to eq(2)
+      end
     end
   end
 end
