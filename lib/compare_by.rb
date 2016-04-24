@@ -21,19 +21,9 @@ module CompareBy
       end
     end
 
-    # this is needed alongside the #<=> method, for some reason
-    def ==(other)
-      attrs = self.class.class_variable_get(:@@comparison_attrs)
-      if attrs
-        attrs.all? do |attr_name|
-          send(attr_name) == other.send(attr_name)
-        end
-      else
-        super
-      end
+    def eql?(other)
+      self == other
     end
-
-    alias_method :eql?, :==
 
     def hash
       attrs = self.class.class_variable_get(:@@comparison_attrs)
