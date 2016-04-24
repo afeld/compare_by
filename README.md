@@ -24,7 +24,7 @@ Suppose you have the following class:
 
 ```ruby
 class SomeClass
-  attr_reader :some_attr, :some_other_attr
+  attr_accessor :some_attr, :some_other_attr
 
   # ...
 end
@@ -38,7 +38,7 @@ require 'compare_by'
 class SomeClass
   include CompareBy
 
-  attr_reader :some_attr, :some_other_attr
+  attr_accessor :some_attr, :some_other_attr
   compare_by :some_attr
 
   # ...
@@ -51,7 +51,7 @@ If you then made two instances of `SomeClass` with the same value of `some_attr`
 instance1 = SomeClass.new
 instance1.some_attr = 'foo'
 instance2 = SomeClass.new
-instance2.some_attr = 'bar'
+instance2.some_attr = 'foo'
 
 instance1 == instance2 #=> true
 instance1.eql?(instance2) #=> true
