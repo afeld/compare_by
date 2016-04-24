@@ -11,7 +11,9 @@ module CompareBy
     def ==(other)
       compare_by = self.class.class_variable_get(:@@compare_by)
       if compare_by
-        send(compare_by) == other.send(compare_by)
+        compare_by.all? do |attr_name|
+          send(attr_name) == other.send(attr_name)
+        end
       else
         super
       end
@@ -22,7 +24,8 @@ module CompareBy
     def hash
       compare_by = self.class.class_variable_get(:@@compare_by)
       if compare_by
-        send(compare_by).hash
+        # TODO use all values...?
+        send(compare_by.first).hash
       else
         super
       end
@@ -30,8 +33,8 @@ module CompareBy
   end
 
   module ClassMethods
-    def compare_by(attr_name)
-      class_variable_set(:@@compare_by, attr_name)
+    def compare_by(*attr_names)
+      class_variable_set(:@@compare_by, attr_names)
     end
   end
 end
