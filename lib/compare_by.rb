@@ -3,11 +3,25 @@ require 'compare_by/version'
 module CompareBy
   def self.included base
     base.class_variable_set(:@@comparison_attrs, nil)
+    base.send :include, Comparable
     base.send :include, InstanceMethods
     base.extend ClassMethods
   end
 
   module InstanceMethods
+    def <=>(other)
+      attrs = self.class.class_variable_get(:@@comparison_attrs)
+      if attrs
+        vals = attrs.map { |attr_name| send(attr_name) }
+        other_vals = attrs.map { |attr_name| other.send(attr_name) }
+
+        vals <=> other_vals
+      else
+        super
+      end
+    end
+
+    # this is needed alongside the #<=> method, for some reason
     def ==(other)
       attrs = self.class.class_variable_get(:@@comparison_attrs)
       if attrs

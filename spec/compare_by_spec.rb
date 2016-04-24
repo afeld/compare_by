@@ -37,6 +37,10 @@ describe CompareBy do
     it "has unique hash values" do
       expect(instance1.hash).to_not eq(instance2.hash)
     end
+
+    it "gives the correct value for <=>" do
+      expect(instance1 <=> instance2).to eq(nil)
+    end
   end
 
   describe "comparing by a single attribute" do
@@ -72,6 +76,10 @@ describe CompareBy do
       it "has the same hash values" do
         expect(instance1.hash).to eq(instance2.hash)
       end
+
+      it "gives the correct value for <=>" do
+        expect(instance1 <=> instance2).to eq(0)
+      end
     end
 
     context "two instances with different values" do
@@ -95,6 +103,10 @@ describe CompareBy do
 
       it "has unique hash values" do
         expect(instance1.hash).to_not eq(instance2.hash)
+      end
+
+      it "gives the correct value for <=>" do
+        expect(instance1 <=> instance2).to eq(1)
       end
     end
   end
@@ -134,6 +146,10 @@ describe CompareBy do
       it "has the same hash values" do
         expect(instance1.hash).to eq(instance2.hash)
       end
+
+      it "gives the correct value for <=>" do
+        expect(instance1 <=> instance2).to eq(0)
+      end
     end
 
     context "two instances with only first value matching" do
@@ -159,6 +175,10 @@ describe CompareBy do
 
       it "has unique hash values" do
         expect(instance1.hash).to_not eq(instance2.hash)
+      end
+
+      it "gives the correct value for <=>" do
+        expect(instance1 <=> instance2).to eq(-1)
       end
     end
 
@@ -186,6 +206,10 @@ describe CompareBy do
       it "has unique hash values" do
         expect(instance1.hash).to_not eq(instance2.hash)
       end
+
+      it "gives the correct value for <=>" do
+        expect(instance1 <=> instance2).to eq(1)
+      end
     end
 
     context "two instances with no values matching" do
@@ -211,6 +235,10 @@ describe CompareBy do
 
       it "has unique hash values" do
         expect(instance1.hash).to_not eq(instance2.hash)
+      end
+
+      it "gives the correct value for <=>" do
+        expect(instance1 <=> instance2).to eq(1)
       end
     end
   end
