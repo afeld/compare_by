@@ -24,8 +24,9 @@ module CompareBy
     def hash
       attrs = self.class.class_variable_get(:@@comparison_attrs)
       if attrs
-        # TODO use all values...?
-        send(attrs.first).hash
+        attrs.map do |attr_name|
+          send(attr_name)
+        end.hash
       else
         super
       end

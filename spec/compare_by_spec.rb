@@ -33,6 +33,10 @@ describe CompareBy do
       set = [instance1, instance2].to_set
       expect(set.size).to eq(2)
     end
+
+    it "has unique hash values" do
+      expect(instance1.hash).to_not eq(instance2.hash)
+    end
   end
 
   describe "comparing by a single attribute" do
@@ -46,7 +50,7 @@ describe CompareBy do
     let(:instance1) { TestCompareByOne.new }
     let(:instance2) { TestCompareByOne.new }
 
-    describe "two instances with the same values" do
+    context "two instances with the same values" do
       before do
         instance1.some_attr = 'foo'
         instance2.some_attr = 'foo'
@@ -64,9 +68,13 @@ describe CompareBy do
         set = [instance1, instance2].to_set
         expect(set.size).to eq(1)
       end
+
+      it "has the same hash values" do
+        expect(instance1.hash).to eq(instance2.hash)
+      end
     end
 
-    describe "two instances with different values" do
+    context "two instances with different values" do
       before do
         instance1.some_attr = 'foo'
         instance2.some_attr = 'bar'
@@ -84,6 +92,10 @@ describe CompareBy do
         set = [instance1, instance2].to_set
         expect(set.size).to eq(2)
       end
+
+      it "has unique hash values" do
+        expect(instance1.hash).to_not eq(instance2.hash)
+      end
     end
   end
 
@@ -98,7 +110,7 @@ describe CompareBy do
     let(:instance1) { TestCompareByMultiple.new }
     let(:instance2) { TestCompareByMultiple.new }
 
-    describe "two instances with the same values" do
+    context "two instances with the same values" do
       before do
         instance1.some_attr = 'foo'
         instance1.some_other_attr = 'bar'
@@ -118,9 +130,13 @@ describe CompareBy do
         set = [instance1, instance2].to_set
         expect(set.size).to eq(1)
       end
+
+      it "has the same hash values" do
+        expect(instance1.hash).to eq(instance2.hash)
+      end
     end
 
-    describe "two instances with only first value matching" do
+    context "two instances with only first value matching" do
       before do
         instance1.some_attr = 'foo'
         instance1.some_other_attr = 'bar'
@@ -140,9 +156,13 @@ describe CompareBy do
         set = [instance1, instance2].to_set
         expect(set.size).to eq(2)
       end
+
+      it "has unique hash values" do
+        expect(instance1.hash).to_not eq(instance2.hash)
+      end
     end
 
-    describe "two instances with only last value matching" do
+    context "two instances with only last value matching" do
       before do
         instance1.some_attr = 'foo'
         instance1.some_other_attr = 'bar'
@@ -162,9 +182,13 @@ describe CompareBy do
         set = [instance1, instance2].to_set
         expect(set.size).to eq(2)
       end
+
+      it "has unique hash values" do
+        expect(instance1.hash).to_not eq(instance2.hash)
+      end
     end
 
-    describe "two instances with no values matching" do
+    context "two instances with no values matching" do
       before do
         instance1.some_attr = 'foo'
         instance1.some_other_attr = 'bar'
@@ -183,6 +207,10 @@ describe CompareBy do
       it "doesn't make them unique in a Set" do
         set = [instance1, instance2].to_set
         expect(set.size).to eq(2)
+      end
+
+      it "has unique hash values" do
+        expect(instance1.hash).to_not eq(instance2.hash)
       end
     end
   end
