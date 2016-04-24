@@ -12,6 +12,13 @@ module CompareBy
       compare_by = self.class.class_variable_get(:@@compare_by)
       send(compare_by) == other.send(compare_by)
     end
+
+    alias_method :eql?, :==
+
+    def hash
+      compare_by = self.class.class_variable_get(:@@compare_by)
+      send(compare_by).hash
+    end
   end
 
   module ClassMethods
