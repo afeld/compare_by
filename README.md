@@ -1,4 +1,4 @@
-# Compare By
+# Compare By [![Build Status](https://travis-ci.org/afeld/compare_by.svg?branch=master)](https://travis-ci.org/afeld/compare_by)
 
 A better version of Ruby's [`Comparable`](http://ruby-doc.org/core-2.3.0/Comparable.html).
 
